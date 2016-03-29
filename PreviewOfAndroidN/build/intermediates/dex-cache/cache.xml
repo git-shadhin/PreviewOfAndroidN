@@ -2,25 +2,25 @@
 <items version="2" >
 
     <item
-        jar="E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\transforms\instantRunSlicer\debug\jars\1\5\main_slice.jar"
+        jar="E:\private_workspace\PreviewOfAndroidN\PreviewOfAndroidN\app\build\intermediates\transforms\instantRunSlicer\debug\jars\1\5\main_sliceb.jar"
         jumboMode="true"
         revision="23.0.2"
-        sha1="d1bf994a722670c9582933c43fb6bee68dc9b64f">
-        <dex dex="E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\transforms\dex\debug\folders\1000\5\main_slice_b15218b45e4ff17e69b4ee00fe8befb30e792a7e\classes.dex" />
+        sha1="c728e4a5ec3cca1ba02add1ff27926f63a34ec5c">
+        <dex dex="E:\private_workspace\PreviewOfAndroidN\PreviewOfAndroidN\app\build\intermediates\transforms\dex\debug\folders\1000\5\main_sliceb_294342958769a940941e602e6b398a1f201f3152\classes.dex" />
     </item>
     <item
-        jar="E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\transforms\instantRunSlicer\debug\jars\1\1a\dependencies.jar"
+        jar="E:\private_workspace\PreviewOfAndroidN\PreviewOfAndroidN\app\build\intermediates\transforms\instantRunSlicer\debug\jars\1\1a\dependencies.jar"
         jumboMode="true"
         revision="23.0.2"
-        sha1="f007d53c69c0f754936fe9b2a04688e18cc15349">
-        <dex dex="E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\transforms\dex\debug\folders\1000\1a\dependencies_6400398556f5cb335dcf6fc2603693f661feaabf\classes.dex" />
+        sha1="83d622012e42b7e17673f9a1336f0a03c5fbafe0">
+        <dex dex="E:\private_workspace\PreviewOfAndroidN\PreviewOfAndroidN\app\build\intermediates\transforms\dex\debug\folders\1000\1a\dependencies_3732a31328e6252399a2f9c72e289dbe0464cf69\classes.dex" />
     </item>
     <item
-        jar="E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\transforms\instantRunSlicer\debug\jars\1\5\main_sliceb.jar"
+        jar="E:\private_workspace\PreviewOfAndroidN\PreviewOfAndroidN\app\build\intermediates\transforms\instantRunSlicer\debug\jars\1\5\main_slice.jar"
         jumboMode="true"
         revision="23.0.2"
-        sha1="76d106a27bc4f18af8a4d2411f03c1931717e824">
-        <dex dex="E:\private_workspace\ChedifierGithub\PreviewOfAndroidN\app\build\intermediates\transforms\dex\debug\folders\1000\5\main_sliceb_98b64c6de09b1df5d786be73d3dc33472cbe2c5e\classes.dex" />
+        sha1="14eae95cf509ace6eafece56fc3550275ffb4fac">
+        <dex dex="E:\private_workspace\PreviewOfAndroidN\PreviewOfAndroidN\app\build\intermediates\transforms\dex\debug\folders\1000\5\main_slice_1a8ea7ffa7246420395dcb4c78c8e94715666258\classes.dex" />
     </item>
 
 </items>
