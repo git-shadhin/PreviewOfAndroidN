@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="多窗口测试"
+            android:textSize="18sp"
             android:padding="20dp"/>
 
         <TextView
@@ -27,13 +28,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="通知栏测试"
+            android:textSize="18sp"
             android:padding="20dp"/>
 
         <TextView
             android:id="@+id/datasaver_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="后台付费流量控制测试"
+            android:text="后台付费流量控制测试(DataSaver)"
+            android:textSize="18sp"
             android:padding="20dp"/>
 
         <TextView
@@ -41,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="新增外部存储目录访问权限测试"
+            android:textSize="18sp"
             android:padding="20dp"/>
 
         <TextView
@@ -48,6 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="获取账号权限测试"
+            android:textSize="18sp"
             android:padding="20dp"/>
 
         <TextView
@@ -55,6 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="注册监听 网络变化"
+            android:textSize="18sp"
             android:padding="20dp"/>
 
         <TextView
@@ -62,6 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="注册监听 Camera 拍照摄像"
+            android:textSize="18sp"
             android:padding="20dp"/>
 
         <TextView
@@ -69,6 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="JobScheduler 测试"
+            android:textSize="18sp"
             android:padding="20dp"/>
 
         <TextView
@@ -76,6 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Doze模式 测试"
+            android:textSize="18sp"
             android:padding="20dp"/>
 
     </LinearLayout>

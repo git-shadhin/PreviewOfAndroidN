@@ -125,7 +125,7 @@ ADDED from E:\private_workspace\PreviewOfAndroidN\PreviewOfAndroidN\app\src\main
 	android:configChanges
 		ADDED from E:\private_workspace\PreviewOfAndroidN\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:70:13-91
 	android:taskAffinity
-		ADDED from E:\private_workspace\PreviewOfAndroidN\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:69:13-42
+		ADDED from E:\private_workspace\PreviewOfAndroidN\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:69:13-36
 	android:name
 		ADDED from E:\private_workspace\PreviewOfAndroidN\PreviewOfAndroidN\app\src\main\AndroidManifest.xml:68:19-74
 activity#com.example.chedifier.previewofandroidn.multiwindows.MultiWindowSampleActivity3

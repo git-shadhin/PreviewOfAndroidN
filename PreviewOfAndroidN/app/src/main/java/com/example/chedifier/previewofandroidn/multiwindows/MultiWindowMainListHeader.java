@@ -29,6 +29,8 @@ public class MultiWindowMainListHeader {
         AbsListView.LayoutParams lp = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ScreenUtils.dip2px(ctx,300));
         mView.setLayoutParams(lp);
+        mView.setBackgroundColor(0xffffdead);
+
         List<Uri> imagesUris = new ArrayList<>();
 
         imagesUris.addAll(MyContentProvider.createUris(ctx));

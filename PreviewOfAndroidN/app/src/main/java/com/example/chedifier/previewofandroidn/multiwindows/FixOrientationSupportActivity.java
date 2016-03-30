@@ -15,10 +15,14 @@ import com.example.chedifier.previewofandroidn.R;
 /**
  * Created by chedifier on 2016/3/26.
  */
-public class FixOrientationSupportActivity extends BaseActivity{
+public class FixOrientationSupportActivity extends BaseActivity implements View.OnClickListener{
 
     private boolean mLocked = false;
     private boolean mScrHor = true;
+
+    private TextView mChangeOri;
+    private TextView mLockOri;
+    private boolean mPortrait = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,79 +30,80 @@ public class FixOrientationSupportActivity extends BaseActivity{
 
         setContentView(R.layout.fix_orientation_activity);
 
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        mChangeOri = (TextView)findViewById(R.id.change_ori);
+        mLockOri = (TextView)findViewById(R.id.lock);
+        mChangeOri.setOnClickListener(this);
+        mLockOri.setOnClickListener(this);
+
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+        mPortrait = getResources().getConfiguration().orientation==Configuration.ORIENTATION_PORTRAIT;
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        updateOpt();
     }
 
     public void onClickFixOrientation(View view){
         Log.d(TAG,"onClickFixOrientation");
 
-        int currentRequestOri = getRequestedOrientation();
-        Log.d(TAG,"currentRequestOri " + currentRequestOri);
-
         mLocked = !mLocked;
 
-//        if(mLocked){
-//            int ori = getRequestedOrientation();
-//            setRequestedOrientation(ori == Configuration.ORIENTATION_PORTRAIT?
-//                    ActivityInfo.SCREEN_ORIENTATION_PORTRAIT:
-//            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-//        }else{
-//            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-//        }
+        if(mLocked){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+        }else{
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+        }
 
-        ((TextView)view).setText(mLocked?"解锁":"锁定屏幕");
+        updateOpt();
+    }
+
+    private void updateOpt(){
+        if(mLockOri!=null){
+            mLockOri.setText(mLocked?"解锁":"锁定屏幕");
+        }
+
+        if(mChangeOri!=null){
+            mChangeOri.setText(mPortrait?"转横屏":"转竖屏");
+        }
     }
 
     public void onClickChangeScreenOrientation(View view){
-        int ori = getRequestedOrientation();
-        Log.d(TAG,"onClickChangeScreenOrientation ori：" + ori);
+        Log.d(TAG,"mPortrait " + mPortrait + " mLocked:"+mLocked);
 
-        switch (ori){
-            case ActivityInfo.SCREEN_ORIENTATION_PORTRAIT:
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                break;
-
-            case ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE:
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                break;
-
-            case ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED:
-
-                break;
+        mLocked = true;
+        if(mPortrait){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        }else{
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         }
 
-        updateOrientationChangeBtn((TextView)view);
+        updateOpt();
     }
 
-    private void updateOrientationChangeBtn(TextView v){
-
-        int ori = getRequestedOrientation();
-        Log.d(TAG,"updateOrientationChangeBtn ori：" + ori);
-
-        switch (ori){
-            case ActivityInfo.SCREEN_ORIENTATION_PORTRAIT:
-                v.setText("转横屏");
-                break;
-
-            case ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE:
-                v.setText("转竖屏");
-                break;
-
-            case ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED:
-
-                break;
-        }
-    }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
+        mPortrait = newConfig.orientation==Configuration.ORIENTATION_PORTRAIT;
+        updateOpt();
+    }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.change_ori:
+
+                onClickChangeScreenOrientation(v);
+                break;
+
+            case R.id.lock:
+                onClickFixOrientation(v);
+                break;
+        }
     }
 }
