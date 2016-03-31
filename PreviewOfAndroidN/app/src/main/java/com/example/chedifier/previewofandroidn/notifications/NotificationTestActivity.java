@@ -9,6 +9,7 @@ import android.service.notification.NotificationListenerService;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.chedifier.previewofandroidn.BaseActivity;
 import com.example.chedifier.previewofandroidn.R;
@@ -20,7 +21,7 @@ public class NotificationTestActivity extends BaseActivity implements View.OnCli
 
 
 
-    private Button mBtnService;
+    private TextView mBtnService;
 
     private BroadcastReceiver mServiceMsgReceiver = new BroadcastReceiver() {
         @Override
@@ -45,7 +46,7 @@ public class NotificationTestActivity extends BaseActivity implements View.OnCli
 
         setContentView(R.layout.notification_test_activity);
 
-        mBtnService = (Button)findViewById(R.id.service);
+        mBtnService = (TextView)findViewById(R.id.service);
         mBtnService.setOnClickListener(this);
 
         updateServiceBtn();
@@ -72,9 +73,9 @@ public class NotificationTestActivity extends BaseActivity implements View.OnCli
     private void updateServiceBtn(){
         if(mBtnService != null){
             if(ServiceHelper.isServiceRunning(this, AutoNotifyService.class)){
-                mBtnService.setText("停止service");
+                mBtnService.setText("停止自动发送Notification");
             }else{
-                mBtnService.setText("启动service");
+                mBtnService.setText("开始自动发送Notification");
             }
 
 

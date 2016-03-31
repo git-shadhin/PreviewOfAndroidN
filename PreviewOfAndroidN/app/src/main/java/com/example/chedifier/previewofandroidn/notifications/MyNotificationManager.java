@@ -1,5 +1,6 @@
 package com.example.chedifier.previewofandroidn.notifications;
 
+import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -7,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Icon;
+import android.os.Build;
 import android.os.Bundle;
 import android.service.notification.StatusBarNotification;
 import android.support.v4.app.NotificationCompat;
@@ -59,6 +61,7 @@ public class MyNotificationManager {
     }
 
     private int mIncNotifyId = sGroups.size()+1;
+    private int mRequestCode = 0;
 
     private MyNotificationManager(){
 
@@ -73,15 +76,17 @@ public class MyNotificationManager {
     }
 
     public void sendMailNotification(Context ctx,
-                                     int requestCode,
                                      String title,
                                      String content){
+
+        int requestCode = getRequestCode();
+        int notifyId = getNotifyId();
 
         PendingIntent contentIntent = PendingIntent.getActivity(
                 ctx,
                 requestCode,
                 new Intent(ctx,NotificationTestActivity.class),
-                0);
+                PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification notification = new NotificationCompat.Builder(ctx)
                 .setSmallIcon(R.drawable.image2)
@@ -97,114 +102,27 @@ public class MyNotificationManager {
                 .build();
 
         Log.d(TAG,"sendMailNotification ");
-        NotificationManagerCompat.from(ctx).notify(getNotifyId(),notification);
+        NotificationManagerCompat.from(ctx).notify(notifyId,notification);
 
         updateGroup(ctx);
-    }
-
-    public void sendChatNotification(Context ctx,
-                                     int requestCode,
-                                     String title,
-                                     String content){
-
-        //接收输入使用
-        RemoteInput remoteInput = new RemoteInput.Builder(NOTIFICATION_REPLY_TEXT_KEY)
-                .setLabel("chedifier1.remoteImput.label1")
-                .build();
-
-        RemoteInput remoteInput2 = new RemoteInput.Builder(NOTIFICATION_REPLY_TEXT_KEY+"2")
-                .setLabel("chedifier1.remoteImput.label2")
-                .build();
-
-        PendingIntent piReply = PendingIntent.getBroadcast(
-                ctx,
-                requestCode,
-                new Intent(ctx,MyNotificationReceiver.class).setAction(NOTIFICATION_ACTION_REPLY)
-                        .putExtra(INTENT_EXTRA_KEY1,1),
-                0);
-
-        NotificationCompat.Action actReply = new NotificationCompat.Action.Builder(
-                R.drawable.notification_icon,
-                "回复",piReply)
-                .addRemoteInput(remoteInput)
-                .addRemoteInput(remoteInput2)
-                .build();
-
-
-        PendingIntent piDismiss = PendingIntent.getBroadcast(
-                ctx,
-                requestCode,
-                new Intent(ctx,MyNotificationReceiver.class).setAction(NOTIFICATION_ACTION_DISMISS)
-                        .putExtra(INTENT_EXTRA_KEY1,1),
-                0);
-        NotificationCompat.Action actDismiss = new NotificationCompat.Action.Builder(
-                R.drawable.image3,
-                "清除",piDismiss)
-                .build();
-
-        PendingIntent piChat = PendingIntent.getActivity(
-                ctx,
-                requestCode,
-                new Intent(ctx,NotificationTestActivity.class),
-                0);
-        NotificationCompat.Action actChat = new NotificationCompat.Action.Builder(
-                R.drawable.image3,
-                "进入聊天",piChat)
-                .build();
-
-        //在notification消失时触发
-        PendingIntent deleteIntent = PendingIntent.getBroadcast(
-                ctx,
-                0,
-                new Intent(ctx,MyNotificationReceiver.class).setAction(NOTIFICATION_ACTION_DISMISS)
-                        .putExtra(INTENT_EXTRA_KEY1,1),
-                0);
-
-        PendingIntent contentIntent = PendingIntent.getActivity(
-                ctx,
-                requestCode,
-                new Intent(ctx,NotificationTestActivity.class),
-                0);
-
-        Notification notification = new NotificationCompat.Builder(ctx)
-                .addAction(actReply)
-                .addAction(actDismiss)
-                .addAction(actChat)//添加重复action无效
-                .setSmallIcon(R.drawable.image2)
-                .setLargeIcon(BitmapFactory.decodeResource(ctx.getResources(),R.drawable.image3))
-                .setContentTitle(title)
-                .setContentInfo("NotifyContentInfo")
-                .setContentText(content)
-                .setContentIntent(contentIntent)
-                .setDeleteIntent(deleteIntent)
-                .setAutoCancel(true)
-                .setGroup(NOTIFICATION_GROUP_CHAT)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setDefaults(NotificationCompat.DEFAULT_VIBRATE)
-                .build();
-
-        Log.d(TAG,"sendChatNotification ");
-        NotificationManagerCompat.from(ctx).notify(getNotifyId(),notification);
-
-        updateGroup(ctx);
-
-        mChatHistory.add(content);
     }
 
 
     /**
-     * 通过 android.app 下的类生成
+     * 通过 android.app 下的类发送Notification
      * @param ctx
-     * @param requestCode
      * @param title
      * @param content
      */
+    @TargetApi(Build.VERSION_CODES.N)
     public void sendChatNotification2(Context ctx,
-                                     int requestCode,
-                                     String title,
-                                     String content){
+                                      String title,
+                                      String content){
 
         int notifyId = getNotifyId();
+        int requestCode = getRequestCode();
+
+        Log.d(TAG,"sendChatNotification2 notifyId: " + notifyId);
 
         //接收输入使用
         android.app.RemoteInput remoteInput = new android.app.RemoteInput.Builder(NOTIFICATION_REPLY_TEXT_KEY)
@@ -222,7 +140,7 @@ public class MyNotificationManager {
                 requestCode,
                 new Intent(ctx,MyNotificationReceiver.class).setAction(NOTIFICATION_ACTION_REPLY)
                         .putExtra(INTENT_EXTRA_KEY1,notifyId),
-                0);
+                PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification.Action actReply = new Notification.Action.Builder(
                 Icon.createWithResource(ctx,R.drawable.notification_icon),
@@ -236,19 +154,17 @@ public class MyNotificationManager {
                 requestCode,
                 new Intent(ctx,MyNotificationReceiver.class).setAction(NOTIFICATION_ACTION_DISMISS)
                         .putExtra(INTENT_EXTRA_KEY1,notifyId),
-                0);
+                PendingIntent.FLAG_UPDATE_CURRENT);
         Notification.Action actDismiss = new Notification.Action.Builder(
                 Icon.createWithResource(ctx,R.drawable.notification_icon),
                 "清除",piDismiss)
-
-                .addRemoteInput(remoteInput2)
                 .build();
 
         PendingIntent piChat = PendingIntent.getActivity(
                 ctx,
                 requestCode,
                 new Intent(ctx,NotificationTestActivity.class),
-                0);
+                PendingIntent.FLAG_UPDATE_CURRENT);
         Notification.Action actChat = new Notification.Action.Builder(
                 Icon.createWithResource(ctx,R.drawable.image3),
                 "进入聊天",piChat)
@@ -260,19 +176,19 @@ public class MyNotificationManager {
                 0,
                 new Intent(ctx,MyNotificationReceiver.class).setAction(NOTIFICATION_ACTION_DISMISS)
                         .putExtra(INTENT_EXTRA_KEY1,notifyId),
-                0);
+                PendingIntent.FLAG_UPDATE_CURRENT);
 
         PendingIntent contentIntent = PendingIntent.getActivity(
                 ctx,
                 requestCode,
                 new Intent(ctx,NotificationTestActivity.class),
-                0);
+                PendingIntent.FLAG_UPDATE_CURRENT);
 
         RemoteViews remoteViews = new RemoteViews(ctx.getPackageName(),R.layout.custom_notification_layout);
 
         Notification notification = new Notification.Builder(ctx)
                 .addAction(actReply)
-//                .setRemoteInputHistory(getChatHistory())
+                .setRemoteInputHistory(getChatHistory())
                 .addAction(actDismiss)
                 .addAction(actChat)//添加重复action无效
                 .setSmallIcon(R.drawable.image2)
@@ -386,8 +302,8 @@ public class MyNotificationManager {
             }
 
             int notifyId = intent.getIntExtra(INTENT_EXTRA_KEY1,-1);
+            Log.d(TAG,"onNotificationIntentBack notifyId " + notifyId);
             NotificationManagerCompat.from(ctx).cancel(notifyId);
-
         }
 
     }
@@ -407,5 +323,10 @@ public class MyNotificationManager {
 
         Log.d(TAG,"getNotifyId " + mIncNotifyId);
         return ++mIncNotifyId;
+    }
+
+    private int getRequestCode(){
+        Log.d(TAG,"mRequestCode " + mRequestCode);
+        return ++mRequestCode;
     }
 }

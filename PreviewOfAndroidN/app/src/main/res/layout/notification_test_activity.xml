@@ -3,11 +3,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <TextView
         android:id="@+id/service"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="启动自动通知Service"/>
+        android:text="启动自动通知Service"
+        android:padding="30dp"
+        android:textSize="18sp"/>
 
     <TextView
         android:layout_width="match_parent"

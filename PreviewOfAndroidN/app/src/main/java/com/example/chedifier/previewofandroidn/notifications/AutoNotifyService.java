@@ -25,6 +25,9 @@ public class AutoNotifyService extends Service{
 
     private Handler mHandler;
 
+    private int mMailNotifyIndex = 0;
+    private int mChatNotifyIndex = 0;
+
 
     @Nullable
     @Override
@@ -52,9 +55,8 @@ public class AutoNotifyService extends Service{
                     case 0:
                         MyNotificationManager.getsInstance().sendMailNotification(
                                 AutoNotifyService.this,
-                                2016,
-                                "邮件标题",
-                                "邮件内容邮件内容邮件内容邮件内容邮件内容邮件内容邮件内容邮件内容邮件内容邮件内容邮件内容邮件内容");
+                                "邮件标题(" + (++mMailNotifyIndex)+")",
+                                "邮件内容邮件内容邮件内容邮件内容邮件内容邮件内容邮件内容邮件内容邮件内容邮件内容邮件内容邮件内容" + (mMailNotifyIndex));
                         mHandler.sendEmptyMessageDelayed(1,3000);
 
                         break;
@@ -63,9 +65,8 @@ public class AutoNotifyService extends Service{
 
                         MyNotificationManager.getsInstance().sendChatNotification2(
                                 AutoNotifyService.this,
-                                2016,
-                                "聊天标题",
-                                "聊天内容聊天内容聊天内容聊天内容聊天内容聊天内容聊天内容聊天内容聊天内容");
+                                "聊天标题(" + (++mChatNotifyIndex)+")",
+                                "聊天内容聊天内容聊天内容聊天内容聊天内容聊天内容聊天内容聊天内容聊天内容" + (mChatNotifyIndex));
 
                         mHandler.sendEmptyMessageDelayed(0,3000);
 
